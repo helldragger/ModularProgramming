@@ -1,26 +1,6 @@
-"""Keyboard hook to watch for hotkey calls"""
+"""Keyboard hook to watch for queries"""
 import modules.algoutput as algo
 import modules.errors as err
-
-
-def set_hook():
-    # TODO make sure we have access to keyboard input and output
-    return
-
-
-def destroy_hook():
-    # TODO revoke cleanly our access to the keyboard
-    return
-
-
-def set_hotkey():
-    # TODO when hotkey triggered: calls on_call()
-    return
-
-
-def destroy_hotkey():
-    # TODO Clear the hotkey
-    return
 
 
 def on_call():

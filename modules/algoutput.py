@@ -1,13 +1,13 @@
 """Output module to send the requested chunk of code as an input to the user's cursor"""
 
 
-def get_algo_string():
+def get_algorithm_path():
     return
 
 
-def send_algo_string():
+def send_algorithm_path():
     return
 
 
-def does_algo_exists():
+def does_algorithm_exists():
     return
