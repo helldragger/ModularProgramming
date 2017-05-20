@@ -1,11 +1,9 @@
 """
 The script-query-to-database-query layer
 """
+import src.db.database as db
 
 
-def format_query(query):
-    """
-    returns a formatted key based on the query asked
-    :param query: the script command
-    :return: the supposed key
-    """
+def ask_database(script_query):
+    algo_type, algo_spec, algo_lang = script_query
+    return db.get_algorithm(algo_type, algo_spec, algo_lang)
