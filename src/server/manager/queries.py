@@ -6,7 +6,7 @@ import src.server.net.communicator as net
 
 def analyze_query(query_string):
     """
-    Sanitize and format the query to ask the database and returns the result or error
+    Sanitize and format the query to ask the database and returns the result
     :param query_string: the query string send by TCP
     :return: the result or corresponding error
     """

@@ -18,9 +18,12 @@ database = {}
 # Stoppable auto-updater to keep the database up to date
 # and avoiding potential queries errors.
 # Might be more efficient with a lot of queries than an update for each queries
-# Might be less efficient in a light use but it should be fast enough and lightweight
-# enough to only leave a negligible footprint on such systems.
+# Might be less efficient in a light use but it should be fast enough
+# to only leave a negligible footprint on such systems.
 class Updater:
+    """
+    Auto updater class, can be paused.
+    """
     def __init__(self):
         self._timer = None
         self.interval = 0.5
@@ -32,12 +35,20 @@ class Updater:
         update_database()
 
     def start(self):
+        """
+        Starts the timer if possible
+        :return: nothing
+        """
         if not self.is_running:
             self._timer = threading.Timer(self.interval, self._run)
             self._timer.start()
             self.is_running = True
 
     def stop(self):
+        """
+        Stops the timer if any
+        :return: nothing
+        """
         self._timer.cancel()
         self.is_running = False
 
@@ -47,12 +58,23 @@ updater = Updater()
 
 
 def start_database():
+    """
+    Starts the auto updater
+    :return: nothing
+    """
+    global updater
     # TODO load the last memorized database
     updater.start()
     return
 
 
 def stop_database():
+    """
+    Stops the auto updater and destroy the remaining data of the database from memory
+    :return: nothing
+    """
+    global database
+    global updater
     updater.stop()
     while updater.is_running:
         t.sleep(1)
@@ -79,7 +101,7 @@ def detect_language(filename):
 
 def get_algorithm_string(path):
     """
-    Returns the content of the algorithm contained in the file given in parameter
+    Returns the content of the algorithm contained in the specified file
     :param path: the file path
     :return: a string of the algorithm
     """
@@ -116,7 +138,7 @@ def update_database():
     Update the database with the current database state.
     :return: nothing
     """
-    threading.Timer(1.0, update_database()).start()
+    global database
     # verify if all the cached files still exists
     dirs_to_verify = database.keys()
     for d in dirs_to_verify:
@@ -135,24 +157,24 @@ def update_database():
     here = os.path.dirname(os.path.realpath(__file__))
     dbpath = os.path.join(here, os.pardir, "algorithms")
     for (type_dir, _, specific_files) in os.walk(dbpath):
-        type_string = type_dir
-        type_string.upper()
+        type_s = type_dir
+        type_s.upper()
         # Create the specific dictionary if needed
-        if database.get(type_string) is None:
-            database[type_string] = {}
+        if database.get(type_s) is None:
+            database[type_s] = {}
 
         for file_name in specific_files:
-            specific_string = "".join(file_name.split('.')[:-1:])
-            specific_string.upper()
+            specific_s = "".join(file_name.split('.')[:-1:])
+            specific_s.upper()
             # Create the language dictionary if needed
-            if database[type_string].get(specific_string) is None:
-                database[type_string][specific_string] = {}
+            if database[type_s].get(specific_s) is None:
+                database[type_s][specific_s] = {}
 
             # Determine the extension of the file
             file_extension = file_name.split('.')[-1]
             # Determine the language of the file
-            language = detect_language(file_extension)
+            l = detect_language(file_extension)
             # Adds it to the database if not there already
-            if database[type_string][specific_string].get(language) is None:
-                database[type_string][specific_string][language] = "\\".join([type_dir, file_name])
+            if database[type_s][specific_s].get(l) is None:
+                database[type_s][specific_s][l] = "\\".join([type_dir, file_name])
     return

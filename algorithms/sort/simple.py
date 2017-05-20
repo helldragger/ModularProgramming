@@ -1,3 +1,6 @@
+"""Simple naive sorting function"""
+
+
 def simple_sort(l):
     """
     Sorts data from the list l in the most naive manner
