@@ -12,5 +12,3 @@ install:
     - pip install codacy-coverage
 script:
     - tox
-    - coverage xml
-    - python-codacy-coverage -r coverage.xml
