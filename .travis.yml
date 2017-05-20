@@ -8,5 +8,9 @@ python:
 
 install:
     - pip install tox-travis
+    - pip install coverage
+    - pip install codacy-coverage
 script:
     - tox
+    - coverage xml
+    - python-codacy-coverage -r coverage.xml
