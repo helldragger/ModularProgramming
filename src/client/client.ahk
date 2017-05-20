@@ -1,5 +1,5 @@
 #SingleInstance, On
-
+#Include %A_ScriptDir%
 ; pretty simple home made code
 >^Space::
     history := %Clipboard%
