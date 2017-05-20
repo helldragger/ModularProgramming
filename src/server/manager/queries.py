@@ -2,7 +2,7 @@
 
 import src.db.manager as db
 import src.server.manager.errors as err
-
+import src.server.net.communicator as net
 
 def analyze_query(query_string):
     """
@@ -15,10 +15,19 @@ def analyze_query(query_string):
     # Split query string into arguments
     query = query_string.split(' ')
     # Verify arguments count
-    if len(query) != 3:
+    if len(query) == 2:
+        # Verify if "server close" was issued
+        if query[0] == "SERVER":
+            if query[1] == "CLOSE":
+                net.close()
+                return "SERVER TERMINATED"
+            else:
+                return err.unknown_server_command()
+    elif len(query) == 3:
+        # Send the query to the database
+        result = db.ask_database(tuple(query))
+        # Send the result back to the TCP socket
+        return result
+    else:
         # Invalid arguments
         return err.invalid_arguments()
-    # Send the query to the database
-    result = db.ask_database(tuple(query))
-    # Send the result back to the TCP socket
-    return result
