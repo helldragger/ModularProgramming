@@ -2,14 +2,16 @@
 The server initializer and main loop
 """
 
+import src.server.net.communicator as comm
+
 
 def run():
-    try:
-        on_init()
-    except Exception as e:
-        print(e)
-    finally:
-        on_close()
+    """
+    Launch the main loop
+    :return: nothing
+    """
+    on_init()
+    comm.run()
     return
 
 
@@ -20,10 +22,3 @@ def on_init():
     """
     return
 
-
-def on_close():
-    """
-    Close the necessary things like remaining sockets, database, and streams
-    :return: nothing
-    """
-    return

@@ -1,34 +1,79 @@
-"""ModularProgramming server side"""
+"""Network-connection-to-network-queries layer"""
 
-import socket as sock
+import socket as socket
+import threading as thrd
 
-import src.server.manager.queries as que
+import src.server.manager.queries as manager
 
 
-# Opens a socket
-def listen_to_interweb():
-    """
-    Listen to the interweb for incoming connections
-    :return:
-    """
-    listener = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
-    listener.bind(('', 22222))
+port = 22222
+ended = False
 
-    while True:
-        listener.listen(5)
-        client, address = listener.accept()
 
-        data = client.recv(255)
-        if data != "":
-            result = que.on_call(data)
-            client.send(result)
-        client.close()
-        listener.close()
+class Request(thrd.Thread):
+    def __init__(self, ip, p, sock):
+        thrd.Thread.__init__(self)
+        self.ip = ip
+        self.port = p
+        self.client = sock
+
+    def run(self):
+        # Gets the data
+        query = self.client.recv()
+        print("Query received from", self.ip, ":", query)
+        # Analyse the data
+        response = manager.analyze_query(query)
+        # Sends the result
+        self.client.send(response)
+        print("Response sent to", self.ip, ":", response)
+        # Close the connection
         return
 
 
-# Binds the socket
-# Gets the data
-# Analyse the data
-# Sends the result
-# Close the connection
+def on_init():
+    """
+    Initialize the tcp server and returns the socket
+    :return: the tcp socket
+    """
+    # Opens a socket
+    tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    # Binds the socket
+    tcpsock.bind(("", port))
+    return tcpsock
+
+
+def on_exit(threads):
+    """
+    Terminate unterminated threads
+    :param threads: the cached threads
+    :return: nothing
+    """
+    for t in threads:
+        del t
+
+
+def run():
+    """
+    Gets the tcp listener and launch new thread for each new connection.
+    :return: nothing
+    """
+    tcpsock = on_init()
+    thread_list = []
+    while not ended:
+        tcpsock.listen(10)
+        (sock, (ip, p)) = tcpsock.accept()
+        newthread = Request(ip, p, sock)
+        thread_list.append(newthread)
+        newthread.start()
+    on_exit(thread_list)
+
+
+def close():
+    """
+    Set the server to close
+    :return: nothing
+    """
+    global ended
+    ended = True
+    return
