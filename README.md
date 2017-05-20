@@ -9,5 +9,5 @@ Tadaa! No need to reinvent the wheel twice!
 
 ## Technically?
 
-This is a simple implementation of an AHK client and a Python server communicating through TCP the server will query
+This is a simple implementation of an Python client and a Python server communicating through TCP the server will query
 it's own database at each client query and send back the data of the algorithm if any.
