@@ -73,13 +73,11 @@ def stop_database():
     Stops the auto updater and destroy the remaining data of the database from memory
     :return: nothing
     """
-    global database
     global updater
     updater.stop()
     while updater.is_running:
         t.sleep(1)
     # TODO serialize the memorized database
-    del database
     return
 
 
