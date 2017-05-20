@@ -6,7 +6,7 @@ import os
 import src.db.errors as err
 
 
-DATABASE_ROOT = os.path.join(os.path.abspath(__file__), os.pardir, os.pardir, "algorithms")
+DATABASE_ROOT = os.path.join(os.path.abspath(__file__), os.pardir, os.pardir, os.pardir, "algorithms")
 
 
 def get_extension(lang):

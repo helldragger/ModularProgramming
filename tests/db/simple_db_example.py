@@ -1,3 +1,6 @@
+"""Simple naive sorting function"""
+
+
 def simple_sort(l):
     """
     Sorts data from the list l in the most naive manner
@@ -10,7 +13,7 @@ def simple_sort(l):
             r.append(data)
         else:
             for index, sorted_data in enumerate(r):
-                if sorted_data < data:
+                if sorted_data < data :
                     r.insert(index, data)
                     break
     return r

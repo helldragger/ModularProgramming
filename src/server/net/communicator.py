@@ -11,6 +11,9 @@ ended = False
 
 
 class Request(thrd.Thread):
+    """
+    Client-Server connection thread
+    """
     def __init__(self, ip, p, sock):
         thrd.Thread.__init__(self)
         self.ip = ip
