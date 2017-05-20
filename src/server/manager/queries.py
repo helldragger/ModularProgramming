@@ -1,10 +1,9 @@
-"""Keyboard hook to watch for queries"""
-import modules.algoutput as algo
-import modules.errors as err
+"""Network queries"""
+import src.algoutput as algo
+import src.errors as err
 
 
-def on_call():
-    s = get_input()
+def on_call(s):
     try:
         eval_selection(s)
         algo.get_algo_string(s)

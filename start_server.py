@@ -1,6 +1,6 @@
 """ModularProgramming launcher"""
-import modules.modprog as mp
+import src.server.server as server
 
 
 if __file__ == "__main__":
-    mp.init()
+    server.run()
