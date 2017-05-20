@@ -7,6 +7,7 @@ import time as t
 
 import src.db.errors as err
 
+
 # Database format: { TypeOfAlgorithm1, TypeOfAlgorithm2...}
 # -> TypeOfAlgorithm format: { SpecificAlgorithm1, SpecificAlgorithm2...}
 # -> SpecificAlgorithm format: { Lang1, Lang2, Lang3....}
@@ -14,12 +15,16 @@ import src.db.errors as err
 database = {}
 
 
+# Stoppable auto-updater to keep the database up to date
+# and avoiding potential queries errors.
+# Might be more efficient with a lot of queries than an update for each queries
+# Might be less efficient in a light use but it should be fast enough and lightweight
+# enough to only leave a negligible footprint on such systems.
 class Updater:
     def __init__(self):
         self._timer = None
         self.interval = 0.5
         self.is_running = False
-        self.start()
 
     def _run(self):
         self.is_running = False
@@ -37,7 +42,23 @@ class Updater:
         self.is_running = False
 
 
+# Start the auto updater
 updater = Updater()
+
+
+def start_database():
+    # TODO load the last memorized database
+    updater.start()
+    return
+
+
+def stop_database():
+    updater.stop()
+    while updater.is_running:
+        t.sleep(1)
+    # TODO serialize the memorized database
+    del database
+    return
 
 
 def detect_language(filename):
