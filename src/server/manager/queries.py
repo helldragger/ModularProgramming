@@ -2,7 +2,7 @@
 
 import src.db.manager as db
 import src.server.manager.errors as err
-import src.server.net.communicator as net
+
 
 def analyze_query(query_string):
     """
@@ -19,8 +19,7 @@ def analyze_query(query_string):
         # Verify if "server close" was issued
         if query[0] == "SERVER":
             if query[1] == "CLOSE":
-                net.close()
-                return "SERVER TERMINATED"
+                return "SERVER WILL BE TERMINATED"
             else:
                 return err.unknown_server_command()
     elif len(query) == 3:

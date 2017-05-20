@@ -27,6 +27,8 @@ class Request(thrd.Thread):
         self.client.send(response)
         print("Response sent to", self.ip, ":", response)
         # Close the connection
+        if response == "SERVER WILL BE TERMINATED":
+            close()
         return
 
 
