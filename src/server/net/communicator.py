@@ -67,19 +67,6 @@ class Request(thrd.Thread):
         return
 
 
-def on_init():
-    """
-    Initialize the tcp server and returns the input and output socket
-    :return: the two sockets
-    """
-    # Opens a socket
-    sock_c_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock_c_s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    # Binds the socket
-    sock_c_s.bind((server, port_s_c_s))
-    return sock_c_s
-
-
 def on_exit(threads):
     """
     Terminate unterminated threads
@@ -95,20 +82,51 @@ def run():
     Gets the tcp listener and launch new thread for each new connection.
     :return: nothing
     """
-    print("Server initialization...")
-    sock_c_s = on_init()
     thread_list = []
     print("Server started... Waiting for incoming connections...")
     while not ended:
+        # Opens a socket
+        sock_c_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock_c_s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # Binds the socket
+        sock_c_s.bind((server, port_s_c_s))
         print("Listening on port", port_s_c_s)
         sock_c_s.listen(10)
         (sock_c, (ip, port_c)) = sock_c_s.accept()
-        newthread = Request(ip, sock_c)
-        thread_list.append(newthread)
-        newthread.start()
+
+        # Opens a socket
+        sock_s_c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock_s_c.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # Binds the socket
+        sock_s_c.bind((server, port_s_s_c))
+
+        print("New request from", ip, ":", port_c_c_s, '...')
+        # Gets the data
+        query = sock_c.recv(1024)
+        print("Query received from client =", query)
+        # Analyse the data
+        query = deformat_query(query)
+        response = manager.analyze_query(query)
+        print("Connection to the client to send response")
+        connected = False
+        while not connected:
+            print("Trying to connect to", ip, ':', port_c_s_c)
+            try:
+                sock_s_c.connect((ip, port_c_s_c))
+                connected = True
+            except Exception as e:
+                pass
+        print("Connected to client")
+        # Sends the result
+        response = format_response(str(response))
+        sock_s_c.send(response)
+        print("Response sent to client =", response)
+        # Close the connection
+        sock_c_s.close()
+        sock_s_c.close()
+        if response == "SERVER WILL BE TERMINATED":
+            close()
     print("Server exiting...")
-    sock_c_s.close()
-    sock_s_c.close()
     on_exit(thread_list)
 
 
