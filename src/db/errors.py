@@ -24,5 +24,5 @@ def language_not_found(lang):
     Returns the language not found error string
     :return: the error message
     """
-    lang.upper()
-    return "ERROR: NO", lang, "VERSION OF THIS ALGORITHM IN THE DATABASE."
+    lang = lang.upper()
+    return "ERROR: NO "+lang+" VERSION OF THIS ALGORITHM IN THE DATABASE."

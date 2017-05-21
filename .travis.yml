@@ -8,7 +8,6 @@ python:
 
 install:
     - pip install tox-travis
-    - pip install keyboard
     - pip install coverage
     - pip install codacy-coverage
 script:

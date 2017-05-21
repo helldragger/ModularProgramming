@@ -11,7 +11,7 @@ def analyze_query(query_string):
     :return: the result or corresponding error
     """
     # Sanitize query string: only upper case
-    query_string.upper()
+    query_string = query_string.upper()
     # Split query string into arguments
     query = query_string.split(' ')
     # Verify arguments count
