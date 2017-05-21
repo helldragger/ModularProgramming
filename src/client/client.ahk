@@ -32,7 +32,7 @@
             debug.WriteLine("Reactivate the editor")
             WinActivate, editor_title, editor_text
             debug.WriteLine("Writing response in place of highlighted text...")
-            SendInput %response%
+            Input %response%
     
         }
     }
