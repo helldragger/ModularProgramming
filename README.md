@@ -1,13 +1,51 @@
 # ModularProgramming
 A new way to code projects, just add your generalized algorithms once in your algo database and just call them to insert them into your code! only work left is adapting the functions name and maybe tweaking the way you sort your data!
 
-## How will this work?
+## What do I need in order to use it?
 
-Simple! You add your algorithms in the algo database, sort them how you want, and when you need to call them, you will just have to write in your file the algorithm you need, select it, and use the hotkey Ctrl + Shift + A!
-This program will then search if your selection is the path to a defined algorithm, if it is, it will replace by itself your selection with a copy of it!
-Tadaa! No need to reinvent the wheel twice!
+-  AHK in order to run the client on windows
+-  ironAHK in order to run the client on linux
+-  python 3.5+
 
-## Technically?
 
-This is a simple implementation of an Python client and a Python server communicating through TCP the server will query
-it's own database at each client query and send back the data of the algorithm if any.
+## How does it works?
+
+### Starting the server
+
+Well, there's a start_server.py you just need to execute in order to start the server.
+That's it!
+
+### Stopping the server
+
+Just access to the server terminal and press Ctrl + C in order to terminate the server
+
+### Starting the client
+
+Execute the start_client.ahk to start the keyboard hook and register the Shift + Space hotkey
+
+### Using the client
+
+Type on your favourite editor, then type your request like this:
+
+<type of algorithm> <specific version> <language used>
+ie: sorting simple python
+
+Then select your request and type Shift + Space, that's it!
+
+### Exiting the client
+
+Use the hotkey Shift + Esc to terminate the client!
+
+## How do I fill my database?
+
+the database is the algorithms folder of this tool, it is used in the following format:
+
+TYPE_OF_ALGORITHM/SPECIFIC_VERSION.LANGUAGE_EXTENSION
+
+Please make sure you type it in upper case.
+
+
+## Some questions?
+
+Feel free to ask some questions by contacting me at christopher.jacquiot@gmail.com if you ever need help or want to
+use this tool for your business, I'd be glad to help you!

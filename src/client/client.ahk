@@ -1,4 +1,5 @@
 #SingleInstance, Force
+SetWorkingDir, %A_ScriptDir%
 
 ; pretty simple home made code
 +Space::
@@ -20,20 +21,25 @@
     FileRead, response, temp.txt
     if (ErrorLevel = 0)
     {
-    debug.WriteLine(response)
-    debug.WriteLine("Deleting temporary file...")
-    FileDelete, temp.txt
-    if (SubStr(response, 1, 5) = "ERROR")
+        debug.WriteLine(response)
+        debug.WriteLine("Deleting temporary file...")
+        FileDelete, temp.txt
+        if (SubStr(response, 1, 5) = "ERROR")
         {
             MsgBox,,"ERROR",%response%
         }
-    else
+        else
         {
             debug.WriteLine("Reactivate the editor")
             WinActivate, editor_title, editor_text
             debug.WriteLine("Writing response in place of highlighted text...")
-            Input %response%
-    
+            Loop, Parse, response, `n
+            {
+                ; A_Index holds the current loop-itteration
+                SendInput, %A_LoopField%
+                
+            }
+        
         }
     }
     else{
@@ -43,3 +49,6 @@
     clipboard := history
     debug.WriteLine("Request completed!")
     return
+
++Esc::
+    ExitApp
