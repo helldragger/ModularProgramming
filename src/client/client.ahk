@@ -18,28 +18,19 @@ SetWorkingDir, %A_ScriptDir%
     debug.WriteLine("Launching python client request")
     RunWait, python ./net/manager.py %clipboard%
     debug.WriteLine("Reading database response")
-    FileRead, response, temp.txt
+    FileRead, clipboard, temp.txt
     if (ErrorLevel = 0)
     {
-        debug.WriteLine(response)
+        debug.WriteLine(clipboard)
         debug.WriteLine("Deleting temporary file...")
         FileDelete, temp.txt
-        if (SubStr(response, 1, 5) = "ERROR")
+        if (SubStr(clipboard, 1, 5) = "ERROR")
         {
-            MsgBox,,"ERROR",%response%
+            MsgBox,,"ERROR",%clipboard%
         }
         else
         {
-            debug.WriteLine("Reactivate the editor")
-            WinActivate, editor_title, editor_text
-            debug.WriteLine("Writing response in place of highlighted text...")
-            Loop, Parse, response, `n
-            {
-                ; A_Index holds the current loop-itteration
-                SendInput, %A_LoopField%
-                
-            }
-        
+            Send ^v
         }
     }
     else{
