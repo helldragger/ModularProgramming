@@ -22,7 +22,16 @@ def specific_not_found():
 def language_not_found(lang):
     """
     Returns the language not found error string
+    :param lang: the language version not found
     :return: the error message
     """
     lang = lang.upper()
     return "ERROR: NO "+lang+" VERSION OF THIS ALGORITHM IN THE DATABASE."
+
+
+def language_not_supported():
+    """
+    Returns the language not supported error string
+    :return: the error message
+    """
+    return "ERROR: THIS LANGUAGE IS CURRENTLY NOT SUPPORTED."

@@ -9,14 +9,19 @@ import src.db.errors as err
 DATABASE_ROOT = os.path.join(os.path.abspath(__file__), os.pardir, os.pardir, os.pardir, "algorithms")
 
 
-def get_extension(lang):
+def get_extensions(lang):
     """
-    Determine the extension of the file based on the language
-    :return: The extension of the file
+    Determine the possible extensions of the file based on the language
+    :return: The possible extensions of the file
     """
     extensions = {
-        "PYTHON": 'PY',
-        "C":  'C'
+        "PYTHON":    ['PY'],
+        "C":         ['C'],
+        "FORTRAN77": ['F', 'FOR'],
+        "FORTRAN95": ['F95.F'],
+        "FORTRAN90": ['F90.F'],
+        "FORTRAN03": ['F03.F']
+
     }
 
     if lang not in extensions.keys():
@@ -46,10 +51,14 @@ def get_algorithm(algo_type, algo_spec, algo_lang):
     """
 
     if os.path.isdir(os.path.join(DATABASE_ROOT, algo_type)):
-        extension = get_extension(algo_lang)
-        if os.path.isfile(os.path.join(DATABASE_ROOT, algo_type, algo_spec + '.' + extension)):
-            return get_algorithm_string(os.path.join(DATABASE_ROOT, algo_type, algo_spec + '.' + extension))
-        else:
-            return err.language_not_found(algo_lang)
+        extensions = get_extensions(algo_lang)
+        if extensions == "UNDETERMINED":
+            return err.language_not_supported()
+        for extension in extensions:
+            filepath = os.path.join(DATABASE_ROOT, algo_type, algo_spec + '.' + extension)
+            print("Searching for", filepath)
+            if os.path.isfile(filepath):
+                return get_algorithm_string(filepath)
+        return err.language_not_found(algo_lang)
     else:
         return err.type_not_found()
