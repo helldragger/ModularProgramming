@@ -1,38 +1,41 @@
 """
 Algorithm dependencies resolver
 """
-import os
 
 import src.db.errors as err
 import src.db.filesystem as fs
 
 
-def get_dependencies_tree(root_path, visited=[], nodes={}):
+def get_dependencies_tree(root_path, visited=(), files_cache={}):
     """
     returns a list of dependencies from a root file
     :param root_path: the root file path
     :param visited: the already visited files to check if there is any circular dependencies
-    :param nodes: a cache to store already visited nodes data
+    :param files_cache: a cache to store already visited files data
     :return: the unclean dependencies list (include repeated imports of same files)
     """
-    visited.append(root_path)
+    print("Building dependecies tree. node visited:", str(visited))
+
     # Putting the file in cache in case of multiple imports
-    if root_path not in nodes.keys():
-        nodes[root_path] = fs.get_algorithm(root_path)
-    current_node = nodes[root_path]
+    if root_path not in files_cache.keys():
+        files_cache[root_path] = fs.get_algorithm(root_path)
+        print(root_path, "cached")
+
+    visited += (root_path,)
+    current_node = files_cache[root_path]
     next_nodes = current_node.requirements
     child_tree = []  # Dependencies queue here
 
     for node_path in next_nodes:
-        childrens_path = get_dependencies_tree(node_path, visited, nodes)
+        childrens_path = get_dependencies_tree(node_path, visited, files_cache)
+        print(node_path, "dependencies:", str(childrens_path))
         for child_path in childrens_path:
             if child_path in visited:
                 raise err.CircularDependenciesException(node_path, child_path)
-            elif not os.path.isfile(child_path):
-                raise err.DependenceNotFoundException(child_path)
             else:
                 child_tree.append(child_path)
-    return [root_path] + child_tree
+    child_tree.insert(0, root_path)
+    return child_tree
 
 
 def clean_dependencies_tree(tree):
@@ -59,6 +62,7 @@ def clean_dependencies_tree(tree):
                 # if our call is repeated
                 repetitions.append(j)
                 # we save it's next call
+            j += 1
         if len(repetitions) > 1:
             # if there is more than one call of the same import
             del repetitions[-1]
@@ -69,6 +73,7 @@ def clean_dependencies_tree(tree):
                 # we suppress it from the tree
         removed += len(repetitions)
         # we updates the tree actual size for the next verification
+        i += 1
     return tree
 
 
@@ -90,6 +95,7 @@ def merge_sources(call_tree):
     :return: the merged source code
     """
     merged_source_code = ""
+    call_tree = call_tree[::-1]
     for i in range(len(call_tree)):
         call = fs.get_algorithm(call_tree[i])
         merged_source_code = "\n\n".join([merged_source_code, call.source_code])

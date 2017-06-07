@@ -35,15 +35,15 @@ def get_file_path(algo_type, algo_spec, algo_lang):
     :param algo_type: the type of algorithm (the directory)
     :param algo_spec: the specific algorithm (the filename)
     :param algo_lang: the language of the specific algorithm (extension)
-    :return: the file path or an Exception
+    :return: the db file path or an Exception
     """
     if os.path.isdir(os.path.join(DATABASE_ROOT, algo_type)):
         extensions = get_extensions(algo_lang)
         for extension in extensions:
-            filepath = os.path.join(DATABASE_ROOT, algo_type, algo_spec + '.' + extension)
-            print("Searching for", filepath)
-            if os.path.isfile(filepath):
-                return filepath
+            file_path = os.path.join(algo_type, algo_spec + '.' + extension)
+            print("Searching for", file_path)
+            if os.path.isfile(os.path.join(DATABASE_ROOT, file_path)):
+                return file_path
         raise err.LanguageNotFoundException(algo_lang)
     else:
         raise err.TypeNotFoundException(algo_type)
@@ -65,6 +65,7 @@ def parse_file_data(path):
     """
     reqs = []
     source = ""
+
     with open(path, 'r') as file:
         lines = file.readlines()
         if lines[0].upper().startswith('NEEDS '):
@@ -73,10 +74,15 @@ def parse_file_data(path):
                 reqs = temp[1:]
             del lines[0]
         source = "".join(lines)
-    return reqs, source
+    return [reqs, source]
 
 
 class Algorithm:
     def __init__(self, path):
-        self.path = path
-        self.requirements, self.source_code = parse_file_data(path)
+        self.path = os.path.join(DATABASE_ROOT, path)
+        if not os.path.isfile(self.path):
+            raise err.DependenceNotFoundException(path)
+        data = parse_file_data(self.path)
+        self.requirements = data[0]
+        self.source_code = data[1]
+        print(path, " parsed.\nRequirements: \n\t", self.requirements, "\nSource code: \n", self.source_code)
