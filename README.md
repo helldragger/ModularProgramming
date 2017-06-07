@@ -4,7 +4,7 @@ A new way to code projects, just add your generalized algorithms once in your al
 ## What do I need in order to use it?
 
 -  AHK in order to run the client on windows
--  ironAHK in order to run the client on linux
+-  ironAHK in order to run the client on linux (untested yet)
 -  python 3+
 
 
