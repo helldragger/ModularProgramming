@@ -1,7 +1,4 @@
-"""Simple naive sorting function"""
-
-
-def simple_sort(l):
+def sort_simple(l):
     """
     Sorts data from the list l in the most naive manner
     :param l: the list of data
