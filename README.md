@@ -1,6 +1,20 @@
 # ModularProgramming
 A new way to code projects, just add your generalized algorithms once in your algo database and just call them to insert them into your code! only work left is adapting the functions name and maybe tweaking the way you sort your data!
 
+## Features
+
+-  Once you have coded an algorithm, you won't have to recode it anymore
+-  It is language-independent, just bind a some file extension to a specific language and you're done
+-  Now you can even code complex algorithm by including some other algorithms in the first line of your file
+-  The client and server can be on different machines, just update the server ip from the client 
+side
+
+### What is coming next?
+
+-  Support for LARGE source codes (currently limited to 4 Ko per request)
+-  Moar languages implemented (just ask if you need a specific one, it's quick to add)
+-  Adding more algorithms to the database (you can contribute too!)
+
 ## What do I need in order to use it?
 
 -  AHK in order to run the client on windows
