@@ -22,7 +22,9 @@ side
 -  python 3+
 
 
-## How does it works?
+# How does it works?
+
+## Server-side
 
 ### Starting the server
 
@@ -33,6 +35,27 @@ That's it!
 
 Just access to the server terminal and press Ctrl + C in order to terminate the server
 
+## The Database
+
+### How do I fill my database?
+
+the database is the algorithms folder of this tool, it is used in the following format:
+
+TYPE_OF_ALGORITHM/SPECIFIC_VERSION.LANGUAGE_EXTENSION
+
+Please make sure you type it in upper case, place your files directly in the database and you're done! 
+You don't even need to restart, your files are already accessible.
+
+### How do I include another algorithm from the database in my big algorithm?
+
+just add this on the FIRST line of your file:
+
+**needs TYPE/SPECIFIC.EXTENSION**
+
+Make sure you're referring to the right algorithm and add any other one next to the first in the same fashion to include it.
+
+## Client-side
+
 ### Starting the client
 
 Execute the start_client.ahk to start the keyboard hook and register the Shift + Space hotkey
@@ -42,7 +65,7 @@ Execute the start_client.ahk to start the keyboard hook and register the Shift +
 Type on your favourite editor, then type your request like this:
 
 <type of algorithm> <specific version> <language used>
-ie: sorting simple python
+ie: "sort simple python" will fetch the SORT/SIMPLE.PY algorithm in the database if it is present.
 
 Then select your request and type Shift + Space, that's it!
 
@@ -50,16 +73,7 @@ Then select your request and type Shift + Space, that's it!
 
 Use the hotkey Shift + Esc to terminate the client!
 
-## How do I fill my database?
-
-the database is the algorithms folder of this tool, it is used in the following format:
-
-TYPE_OF_ALGORITHM/SPECIFIC_VERSION.LANGUAGE_EXTENSION
-
-Please make sure you type it in upper case.
-
-
-## Some questions?
+## Any questions?
 
 Feel free to ask some questions by contacting me at christopher.jacquiot@gmail.com if you ever need help or want to
 use this tool for your business, I'd be glad to help you!
