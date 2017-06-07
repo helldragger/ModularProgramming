@@ -3,35 +3,61 @@ The error messages of the database
 """
 
 
-def type_not_found():
+class DataBaseException(Exception):
     """
-    Returns the type not found error string
-    :return: the error message
+    A subclass of the base exception to regroup every specific exception of this database
     """
-    return "ERROR: NO SUCH TYPE OF ALGORITHM IN THE DATABASE."
+
+    def __init__(self):
+        super().__init__()
+        self.reason = ""
 
 
-def specific_not_found():
+class UnsupportedLanguageException(DataBaseException):
     """
-    Returns the specific not found error string
-    :return: the error message
+    The unsupported language error
     """
-    return "ERROR: NO SUCH SPECIFIC ALGORITHM IN THE DATABASE."
+
+    def __init__(self, language):
+        super().__init__()
+        self.reason = " ".join(["ERROR:", str(language).upper(), "IS CURRENTLY NOT SUPPORTED."])
 
 
-def language_not_found(lang):
+class LanguageNotFoundException(DataBaseException):
     """
-    Returns the language not found error string
-    :param lang: the language version not found
-    :return: the error message
+    The language version not found error
     """
-    lang = lang.upper()
-    return "ERROR: NO "+lang+" VERSION OF THIS ALGORITHM IN THE DATABASE."
+
+    def __init__(self, language):
+        super().__init__()
+        self.reason = " ".join(["ERROR: NO", str(language).upper(), "VERSION OF THIS ALGORITHM IN THE DATABASE."])
 
 
-def language_not_supported():
+class TypeNotFoundException(DataBaseException):
     """
-    Returns the language not supported error string
-    :return: the error message
+    The type not found error
     """
-    return "ERROR: THIS LANGUAGE IS CURRENTLY NOT SUPPORTED."
+
+    def __init__(self, type):
+        super().__init__()
+        self.reason = " ".join(["ERROR: THERE IS NO ", str(type).upper(), "TYPE IN THE DATABASE."])
+
+
+class CircularDependenciesException(DataBaseException):
+    """
+    The circular dependencies error
+    """
+
+    def __init__(self, node_path, child_path):
+        super().__init__()
+        self.reason = " ".join(["ERROR: CIRCULAR DEPENDENCIES,", node_path, "HAS ATTEMPTED TO IMPORT", child_path, "."])
+
+
+class DependenceNotFoundException(DataBaseException):
+    """
+    The circular dependencies error
+    """
+
+    def __init__(self, child_path):
+        super().__init__()
+        self.reason = " ".join(["ERROR: DEPENDENCE", child_path, "NOT FOUND."])
