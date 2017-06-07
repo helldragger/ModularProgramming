@@ -32,7 +32,7 @@ def ask_database(request):
             print("Query sent")
             # Gets response
             print("Receiving response")
-            response = sock.recv(1024).strip().decode()
+            response = sock.recv(4096).strip().decode()
             print("Response received:", response)
             # Close socket properly
             print("Closing connection...")

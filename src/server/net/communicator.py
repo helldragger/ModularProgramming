@@ -13,7 +13,7 @@ class QueryHandler(socketserver.BaseRequestHandler):
     def handle(self):
         print("Connected to", self.client_address)
         # get the query
-        data = self.request.recv(1024).strip().decode()
+        data = self.request.recv(4096).strip().decode()
         print("Query :", data)
         # analyze the query
         data = manager.analyze_query(data)

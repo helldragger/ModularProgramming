@@ -85,4 +85,4 @@ class Algorithm:
         data = parse_file_data(self.path)
         self.requirements = data[0]
         self.source_code = data[1]
-        print(path, " parsed.\nRequirements: \n\t", self.requirements, "\nSource code: \n", self.source_code)
+        print(path, " parsed.\nRequirements: \n\t", self.requirements, "\n")

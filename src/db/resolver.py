@@ -14,8 +14,6 @@ def get_dependencies_tree(root_path, visited=(), files_cache={}):
     :param files_cache: a cache to store already visited files data
     :return: the unclean dependencies list (include repeated imports of same files)
     """
-    print("Building dependecies tree. node visited:", str(visited))
-
     # Putting the file in cache in case of multiple imports
     if root_path not in files_cache.keys():
         files_cache[root_path] = fs.get_algorithm(root_path)
@@ -28,7 +26,6 @@ def get_dependencies_tree(root_path, visited=(), files_cache={}):
 
     for node_path in next_nodes:
         childrens_path = get_dependencies_tree(node_path, visited, files_cache)
-        print(node_path, "dependencies:", str(childrens_path))
         for child_path in childrens_path:
             if child_path in visited:
                 raise err.CircularDependenciesException(node_path, child_path)

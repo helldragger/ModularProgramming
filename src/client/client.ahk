@@ -23,7 +23,7 @@ SetWorkingDir, %A_ScriptDir%
     {
         debug.WriteLine(clipboard)
         debug.WriteLine("Deleting temporary file...")
-        FileDelete, temp.txt
+        ; FileDelete, temp.txt
         if (SubStr(clipboard, 1, 5) = "ERROR")
         {
             MsgBox,,"ERROR",%clipboard%
