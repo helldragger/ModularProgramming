@@ -1,6 +1,4 @@
-NEEDS
-SORT / SIMPLE.PY
-STATS / AVERAGE.PY
+NEEDS SORT/SIMPLE.PY STATS/AVERAGE.PY
 
 
 def stats_quartiles(numbers):
