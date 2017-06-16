@@ -8,10 +8,11 @@ A new way to code projects, just add your generalized algorithms once in your al
 -  Now you can even code complex algorithm by including some other algorithms in the first line of your file
 -  The client and server can be on different machines, just update the server ip from the client 
 side
+- Can communicate any size of algorithm (make full and functionnal parts of programs easily now!)
 
 ### What is coming next?
 
--  Support for LARGE source codes (currently limited to 4 Ko per request)
+-  ---Support for LARGE source codes--- *DONE*
 -  Moar languages implemented (just ask if you need a specific one, it's quick to add)
 -  Adding more algorithms to the database (you can contribute too!)
 
