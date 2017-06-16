@@ -11,6 +11,31 @@ import socket
 # We get the response then we close the connection
 
 
+def send_message(message, sock):
+    size = str(len(message))
+    sock.send((size+'\0'+message).encode())
+
+
+def get_message(sock):
+    header = sock.recv(1024).decode()
+    head = header.split('\0')
+    if len(head) != 2:
+        return "ERROR: Server sent a wrong data format"
+    try:
+        size = int(head[0])
+    except Exception as e:
+        return "ERROR: Server sent a wrong data size"
+    data = [head[1]]
+    data_received = len(head[1])
+    while data_received < size:
+        chunk = sock.recv(1024).decode()
+        if len(chunk) == 0:
+            return "ERROR: DATA TRANSMISSION INTERRUPTED BY THE SERVER"
+        data_received += len(chunk)
+        data.append(chunk.strip())
+    return "".join(data)
+
+
 def ask_database(request):
     """
     Gets the tcp listener and ask the database as soon as possible
@@ -28,11 +53,11 @@ def ask_database(request):
             print("Connected")
             # Sends query
             print("Sending the query:", request)
-            sock.sendall(request.encode())
+            send_message(request, sock)
             print("Query sent")
             # Gets response
             print("Receiving response")
-            response = sock.recv(4096).strip().decode()
+            response = get_message(sock)
             print("Response received:", response)
             # Close socket properly
             print("Closing connection...")
@@ -42,5 +67,5 @@ def ask_database(request):
         return response
     except Exception as e:
         with open("error_log.txt", 'w') as log:
-            log.write(e)
+            log.write(str(e))
         input("Enter anything to continue")
