@@ -23,8 +23,8 @@ def is_valid_request():
     :return: if there is or not
     """
     if len(sys.argv) != 4:
-        write_response("ERROR: INVALID ARGUMENTS, USE '<TYPE> <SPECIFIC> <LANGUAGE>'\
-     or 'SERVER <COMMAND>'")
+        write_response("ERROR: INVALID ARGUMENTS, USE '<TYPE> <SPECIFIC>\
+                        <LANGUAGE>' or 'SERVER <COMMAND>'")
         return False
     return True
 

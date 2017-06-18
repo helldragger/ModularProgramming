@@ -1,6 +1,6 @@
 def network_receive_once(sock):
     """
-    Receive a message from a connected socket in the format 'size\0message' if any.
+    Receive a message from a socket in the format 'size\0message' if any.
     Not fit to be used to receive multiple messages at once.
 
     :param sock: the connected socket
@@ -29,7 +29,6 @@ def network_receive_once(sock):
     except ValueError:
         raise Exception("ERROR: Invalid request size")
 
-    # verification que la requete ne soit pas trop grande (on veut pas un overflow)
     if max_data_size != 0 and size > max_data_size:
         raise Exception("ERROR: Data to receive is too large")
 

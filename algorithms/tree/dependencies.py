@@ -44,8 +44,8 @@ def parse_tree(nodes, parent, visited=()):
 
     :param nodes: the entire list of nodes
     :param parent: the parent node
-    :param visited: the already visited nodes to check if there is any circular dependencies
-    :return: the unclean dependencies list (include repeated imports of same files)
+    :param visited: the already visited nodes
+    :return: the unclean tree (include repeated imports of same files)
     """
 
     visited += (parent,)
@@ -54,7 +54,7 @@ def parse_tree(nodes, parent, visited=()):
 
     for child in children:
         if child in visited:
-            raise Exception('Circular dependency between ' + str(parent) + " and " + str(child))
+            raise Exception('Circular dependency: ' + str(parent) + ", " + str(child))
         else:
             child_tree.append(parse_tree(nodes, child, visited))
 
@@ -63,7 +63,7 @@ def parse_tree(nodes, parent, visited=()):
 
 def tree_dependencies(nodes, root):
     """
-    Returns a dependencies tree from a list of each nodes dependencies and the tree root
+    Returns a dependencies tree from a list of each nodes children and the root
 
     :param nodes: the list of each nodes dependencies
     :param root: the root of the tree

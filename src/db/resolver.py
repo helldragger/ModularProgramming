@@ -6,13 +6,12 @@ import src.db.errors as err
 import src.db.filesystem as fs
 
 
-def get_dependencies_tree(root_path, visited=(), files_cache={}):
+def get_dependencies_tree(root_path, visited=()):
     """
     returns a list of dependencies from a root file
     :param root_path: the root file path
-    :param visited: the already visited files to check if there is any circular dependencies
-    :param files_cache: a cache to store already visited files data
-    :return: the unclean dependencies list (include repeated imports)
+    :param visited: the already visited files
+    :return: the unclean dependencies (include repeated imports)
     """
     # Putting the file in cache in case of multiple imports WIP
     # if caching_mode_enabled():
@@ -27,7 +26,7 @@ def get_dependencies_tree(root_path, visited=(), files_cache={}):
     child_tree = []  # Dependencies queue here
 
     for node_path in next_nodes:
-        childrens_path = get_dependencies_tree(node_path, visited, files_cache)
+        childrens_path = get_dependencies_tree(node_path, visited)
         for child_path in childrens_path:
             if child_path in visited:
                 raise err.CircularDependenciesException(node_path, child_path)
@@ -89,21 +88,24 @@ def resolve_dependencies(root_path):
 
 def merge_sources(call_tree):
     """
-    Merges the different dependencies into a single source code in the order of the call tree
+    Merges the different dependencies into a single source
+    code in the order of the call tree
     :param call_tree: the dependencies calls in correct order (parent -> child)
     :return: the merged source code
     """
     merged_source_code = ""
     call_tree = call_tree[::-1]
-    for i in range(len(call_tree)):
-        call = fs.get_algorithm(call_tree[i])
-        merged_source_code = "\n\n".join([merged_source_code, call.source_code])
+    for current_call in call_tree:
+        call = fs.get_algorithm(current_call)
+        merged_source_code = "\n\n".join([merged_source_code,
+                                          call.get_source_code()])
     return merged_source_code
 
 
 def resolve_source_code(root_path):
     """
-    Resolves the algorithm dependencies and merges the sources into a complete algorithm
+    Resolves the algorithm dependencies and merges the
+    sources into a complete algorithm
     :param root_path: the root file path
     :return: the source_code
     """
@@ -114,7 +116,8 @@ def resolve_source_code(root_path):
 
 def get_algorithm(algo_type, algo_spec, algo_lang):
     """
-    Alias function for ease of use, used to resolve an algorithm source code from a network query
+    Alias function for ease of use, used to resolve
+    an algorithm source code from a network query
     :param algo_type: the type of the algorithm (directory)
     :param algo_spec: the specific version (file name)
     :param algo_lang: the language used (file extension)

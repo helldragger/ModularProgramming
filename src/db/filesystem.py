@@ -90,3 +90,12 @@ class Algorithm:
         self.requirements = data[0]
         self.source_code = data[1]
         print(path, " parsed.\nRequirements: \n\t", self.requirements, "\n")
+
+    def get_path(self):
+        return self.path
+
+    def get_requirements(self):
+        return self.requirements
+
+    def get_source_code(self):
+        return self.source_code

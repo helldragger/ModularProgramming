@@ -20,7 +20,9 @@ class UnsupportedLanguageException(DataBaseException):
 
     def __init__(self, language):
         super().__init__()
-        self.reason = " ".join(["ERROR:", str(language).upper(), "IS CURRENTLY NOT SUPPORTED."])
+        self.reason = " ".join(["ERROR:",
+                                str(language).upper(),
+                                "IS CURRENTLY NOT SUPPORTED."])
 
 
 class LanguageNotFoundException(DataBaseException):
@@ -30,7 +32,9 @@ class LanguageNotFoundException(DataBaseException):
 
     def __init__(self, language):
         super().__init__()
-        self.reason = " ".join(["ERROR: NO", str(language).upper(), "VERSION OF THIS ALGORITHM IN THE DATABASE."])
+        self.reason = " ".join(["ERROR: NO",
+                                str(language).upper(),
+                                "VERSION OF THIS ALGORITHM IN THE DATABASE."])
 
 
 class TypeNotFoundException(DataBaseException):
@@ -38,9 +42,11 @@ class TypeNotFoundException(DataBaseException):
     The type not found error
     """
 
-    def __init__(self, type):
+    def __init__(self, specified_type):
         super().__init__()
-        self.reason = " ".join(["ERROR: THERE IS NO ", str(type).upper(), "TYPE IN THE DATABASE."])
+        self.reason = " ".join(["ERROR: THERE IS NO ",
+                                str(specified_type).upper(),
+                                "TYPE IN THE DATABASE."])
 
 
 class CircularDependenciesException(DataBaseException):
@@ -48,9 +54,13 @@ class CircularDependenciesException(DataBaseException):
     The circular dependencies error
     """
 
-    def __init__(self, node_path, child_path):
+    def __init__(self, parent, child):
         super().__init__()
-        self.reason = " ".join(["ERROR: CIRCULAR DEPENDENCIES,", child, " AND ", parent, "."])
+        self.reason = " ".join(["ERROR: CIRCULAR DEPENDENCIES,",
+                                child,
+                                " AND ",
+                                parent,
+                                "."])
 
 
 class DependenceNotFoundException(DataBaseException):
@@ -60,4 +70,6 @@ class DependenceNotFoundException(DataBaseException):
 
     def __init__(self, child_path):
         super().__init__()
-        self.reason = " ".join(["ERROR: DEPENDENCE", child_path, "NOT FOUND."])
+        self.reason = " ".join(["ERROR: DEPENDENCE",
+                                child_path,
+                                "NOT FOUND."])
