@@ -16,11 +16,11 @@ side
 -  ---Support for LARGE source codes--- *DONE*
 -  Moar languages implemented (just ask if you need a specific one, it's quick to add)
 -  Adding more algorithms to the database (you can contribute too!)
+-  Maybe linux support if there is interest in such a feature
 
 ## What do I need in order to use it?
 
 -  **AHK** in order to run the client on windows
--  ironAHK in order to run the client on linux (untested yet)
 -  **python 3+**
 
 

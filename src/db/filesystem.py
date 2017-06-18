@@ -6,6 +6,7 @@ import src.db.errors as err
 
 
 DATABASE_ROOT = os.path.join(os.path.abspath(__file__), os.pardir, os.pardir, os.pardir, "algorithms")
+caching_mode = False
 
 
 def get_extensions(lang):

@@ -14,13 +14,15 @@ def get_dependencies_tree(root_path, visited=(), files_cache={}):
     :param files_cache: a cache to store already visited files data
     :return: the unclean dependencies list (include repeated imports of same files)
     """
-    # Putting the file in cache in case of multiple imports
-    if root_path not in files_cache.keys():
-        files_cache[root_path] = fs.get_algorithm(root_path)
-        print(root_path, "cached")
+    # Putting the file in cache in case of multiple imports WIP
+    # if caching_mode_enabled():
+    #    if root_path not in files_cache.keys():
+    #        files_cache[root_path] = fs.get_algorithm(root_path)
+    #        print(root_path, "cached")
 
     visited += (root_path,)
-    current_node = files_cache[root_path]
+    # current_node = files_cache[root_path]
+    current_node = fs.get_algorithm(root_path)
     next_nodes = current_node.requirements
     child_tree = []  # Dependencies queue here
 
