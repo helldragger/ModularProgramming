@@ -1,5 +1,6 @@
 # ModularProgramming
-A new way to code projects, just add your generalized algorithms once in your algo database and just call them to insert them into your code! only work left is adapting the functions name and maybe tweaking the way you sort your data!
+A new way to code projects, just add your generalized algorithms once in your algo database and just call them to insert them into your code!
+Only work left is adapting the functions name and maybe tweaking the way you sort your data!
 
 ## Features
 
@@ -8,7 +9,7 @@ A new way to code projects, just add your generalized algorithms once in your al
 -  Now you can even code complex algorithm by including some other algorithms in the first line of your file
 -  The client and server can be on different machines, just update the server ip from the client 
 side
-- Can communicate any size of algorithm (make full and functionnal parts of programs easily now!)
+- Can communicate any size of algorithm (make full and functional parts of programs easily now!)
 
 ### What is coming next?
 
@@ -18,9 +19,9 @@ side
 
 ## What do I need in order to use it?
 
--  AHK in order to run the client on windows
+-  **AHK** in order to run the client on windows
 -  ironAHK in order to run the client on linux (untested yet)
--  python 3+
+-  **python 3+**
 
 
 # How does it works?
@@ -29,12 +30,12 @@ side
 
 ### Starting the server
 
-Well, there's a start_server.py you just need to execute in order to start the server.
+Well, there's a **start_server.py** you just need to execute in order to start the server.
 That's it!
 
 ### Stopping the server
 
-Just access to the server terminal and press Ctrl + C in order to terminate the server
+Just access to the server terminal and press **Ctrl + C** in order to terminate the server
 
 ## The Database
 
@@ -42,16 +43,16 @@ Just access to the server terminal and press Ctrl + C in order to terminate the 
 
 the database is the algorithms folder of this tool, it is used in the following format:
 
-TYPE_OF_ALGORITHM/SPECIFIC_VERSION.LANGUAGE_EXTENSION
+***type_of_algorithm/specific_version.language_extension***
 
-Please make sure you type it in upper case, place your files directly in the database and you're done! 
+Please make sure you type it in lower case, place your files directly in the database and you're done!
 You don't even need to restart, your files are already accessible.
 
 ### How do I include another algorithm from the database in my big algorithm?
 
-just add this on the FIRST line of your file:
+just add this on the **FIRST** line of your file:
 
-**needs TYPE/SPECIFIC.EXTENSION**
+***needs type/specific.extension***
 
 Make sure you're referring to the right algorithm and add any other one next to the first in the same fashion to include it.
 
@@ -59,22 +60,22 @@ Make sure you're referring to the right algorithm and add any other one next to 
 
 ### Starting the client
 
-Execute the start_client.ahk to start the keyboard hook and register the Shift + Space hotkey
+Execute the **start_client.ahk** to start the keyboard hook and register the Shift + Space hotkey
 
 ### Using the client
 
 Type on your favourite editor, then type your request like this:
 
-<type of algorithm> <specific version> <language used>
-ie: "sort simple python" will fetch the SORT/SIMPLE.PY algorithm in the database if it is present.
+***<type of algorithm> <specific version> <language used>***
+ie: **"sort simple python"** will fetch the **sort/simple.py** algorithm in the database if it is present.
 
-Then select your request and type Shift + Space, that's it!
+Then select your request and type **Shift + Space**, that's it!
 
 ### Exiting the client
 
-Use the hotkey Shift + Esc to terminate the client!
+Use the hotkey **Shift + Esc** to terminate the client!
 
 ## Any questions?
 
-Feel free to ask some questions by contacting me at christopher.jacquiot@gmail.com if you ever need help or want to
+Feel free to ask some questions by contacting me at **christopher.jacquiot@gmail.com** if you ever need help or want to
 use this tool for your business, I'd be glad to help you!
