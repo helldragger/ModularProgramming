@@ -68,7 +68,7 @@ def parse_file_data(path):
     source = ""
 
     with open(path, 'r') as file:
-        lines = file.readlines()
+        lines = [line for line in file]
         if lines[0].startswith('needs '):
             temp = lines[0].lower().split()
             if len(temp) > 1:

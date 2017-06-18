@@ -18,4 +18,4 @@ def ask_database(script_query):
     except err.DataBaseException as error:
         return error.reason
     except Exception as error:
-        return error
+        return str(error)
