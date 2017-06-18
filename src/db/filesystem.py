@@ -79,6 +79,9 @@ def parse_file_data(path):
 
 
 class Algorithm:
+    """
+    An algorithm file wrapper
+    """
     def __init__(self, path):
         self.path = os.path.join(DATABASE_ROOT, path)
         if not os.path.isfile(self.path):

@@ -12,7 +12,7 @@ def get_dependencies_tree(root_path, visited=(), files_cache={}):
     :param root_path: the root file path
     :param visited: the already visited files to check if there is any circular dependencies
     :param files_cache: a cache to store already visited files data
-    :return: the unclean dependencies list (include repeated imports of same files)
+    :return: the unclean dependencies list (include repeated imports)
     """
     # Putting the file in cache in case of multiple imports WIP
     # if caching_mode_enabled():
@@ -90,7 +90,7 @@ def resolve_dependencies(root_path):
 def merge_sources(call_tree):
     """
     Merges the different dependencies into a single source code in the order of the call tree
-    :param call_tree: the dependencies calls in correct order (root -> dependencies -> sub-dependencies...)
+    :param call_tree: the dependencies calls in correct order (parent -> child)
     :return: the merged source code
     """
     merged_source_code = ""

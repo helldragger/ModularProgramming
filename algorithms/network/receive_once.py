@@ -1,6 +1,6 @@
 def network_receive_once(sock):
     """
-    Receive a message from a connected socket in the following format 'size\0message' if any.
+    Receive a message from a connected socket in the format 'size\0message' if any.
     Not fit to be used to receive multiple messages at once.
 
     :param sock: the connected socket

@@ -18,7 +18,6 @@ class QueryHandler(socketserver.BaseRequestHandler):
 def run_server():
     """
     Gets the tcp listener and launch new thread for each new connection.
-    
     :return: nothing
     """
     # # CONSTANTS

@@ -50,7 +50,7 @@ class CircularDependenciesException(DataBaseException):
 
     def __init__(self, node_path, child_path):
         super().__init__()
-        self.reason = " ".join(["ERROR: CIRCULAR DEPENDENCIES,", node_path, "HAS ATTEMPTED TO IMPORT", child_path, "."])
+        self.reason = " ".join(["ERROR: CIRCULAR DEPENDENCIES,", child, " AND ", parent, "."])
 
 
 class DependenceNotFoundException(DataBaseException):

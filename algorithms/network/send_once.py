@@ -1,6 +1,6 @@
 def network_send_once(message, sock):
     """
-    Sends the size of the message and itself in the following format: 'size\0message'.
+    Sends the size of the message and itself in the format: 'size\0message'.
     Not fit to be used to send multiple messages at once.
 
     :param message: the message to send

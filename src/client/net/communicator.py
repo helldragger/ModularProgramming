@@ -12,11 +12,22 @@ import socket
 
 
 def send_message(message, sock):
+    """
+    Sends the message to the server via the connected socket
+    :param message: the message to send
+    :param sock: the socket to use
+    :return: nothing
+    """
     size = str(len(message))
     sock.sendall((size+'\0'+message).encode())
 
 
 def get_message(sock):
+    """
+    Receives the server answer via the connected socket
+    :param sock: the socket from which to listen to
+    :return: the answer
+    """
     header = sock.recv(1024).decode()
     head = header.split('\0')
     if len(head) != 2:
@@ -39,7 +50,6 @@ def get_message(sock):
 def ask_database(request):
     """
     Gets the tcp listener and ask the database as soon as possible
-
     :return: the database response
     """
     server = 'localhost'

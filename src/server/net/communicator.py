@@ -23,7 +23,7 @@ def get_message(sock):
         size = int(head[0])
     except Exception as e:
         return "ERROR: Invalid request size"
-    # verification que la requete ne soit pas trop grande (on veut pas un overflow)
+    # verification que la requete ne soit pas trop grande
     if size > 1024:
         return "ERROR: Request too large"
     # instanciation des variables de recuperation des données
@@ -32,7 +32,7 @@ def get_message(sock):
     while data_received < size:
         # recuperation d'un chunk
         chunk = sock.recv(1024).decode()
-        # verification qu'on a pas recu un chunk vide (fin de transmission innattendue)
+        # verification qu'on a pas recu un chunk vide
         if len(chunk) == 0:
             break
         # Add received chunk size to the total data received
