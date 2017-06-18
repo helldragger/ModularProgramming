@@ -14,7 +14,7 @@ def ask_database(script_query):
     """
     algo_type, algo_spec, algo_lang = script_query
     try:
-        return db.get_algorithm(algo_type, algo_spec, algo_lang)
+        return db.get_algorithm(algo_type.lower(), algo_spec.lower(), algo_lang.lower())
     except err.DataBaseException as error:
         return error.reason
     except Exception as error:

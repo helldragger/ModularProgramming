@@ -1,9 +1,8 @@
-NEEDS SORT/SIMPLE.PY STATS/AVERAGE.PY
-
-
+needs sort/simple.py stats/average.py
 def stats_quartiles(numbers):
     """
     Takes a list of numbers and returns the first, median and third quartiles
+
     :param numbers: the numbers list
     :return: the first, median and third quartiles
     """

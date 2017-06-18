@@ -14,12 +14,12 @@ def get_extensions(lang):
     :return: The possible extensions of the file
     """
     extensions = {
-        "PYTHON":    ['PY'],
-        "C":         ['C'],
-        "FORTRAN77": ['F', 'FOR'],
-        "FORTRAN95": ['F95.F'],
-        "FORTRAN90": ['F90.F'],
-        "FORTRAN03": ['F03.F']
+        "python":    ['py'],
+        "c":         ['c'],
+        "fortran77": ['f', 'for'],
+        "fortran95": ['f95.f'],
+        "fortran90": ['f90.f'],
+        "fortran03": ['f03.f']
 
     }
 
@@ -68,8 +68,8 @@ def parse_file_data(path):
 
     with open(path, 'r') as file:
         lines = file.readlines()
-        if lines[0].upper().startswith('NEEDS '):
-            temp = lines[0].upper().split()
+        if lines[0].startswith('needs '):
+            temp = lines[0].lower().split()
             if len(temp) > 1:
                 reqs = temp[1:]
             del lines[0]

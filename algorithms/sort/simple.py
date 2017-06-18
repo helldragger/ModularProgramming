@@ -1,6 +1,7 @@
 def sort_simple(l):
     """
     Sorts data from the list l in the most naive manner
+
     :param l: the list of data
     :return: the sorted data
     """
@@ -10,7 +11,7 @@ def sort_simple(l):
             r.append(data)
         else:
             for index, sorted_data in enumerate(r):
-                if sorted_data < data :
+                if sorted_data < data:
                     r.insert(index, data)
                     break
     return r
