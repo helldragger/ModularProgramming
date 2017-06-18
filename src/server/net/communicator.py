@@ -21,7 +21,7 @@ def get_message(sock):
     # Recuperation de la taille du message sous forme numerique
     try:
         size = int(head[0])
-    except Exception as e:
+    except Exception:
         return "ERROR: Invalid request size"
     # verification que la requete ne soit pas trop grande
     if size > 1024:

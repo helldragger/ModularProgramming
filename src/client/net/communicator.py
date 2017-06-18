@@ -34,7 +34,7 @@ def get_message(sock):
         return "ERROR: Server sent a wrong data format"
     try:
         size = int(head[0])
-    except Exception as e:
+    except Exception:
         return "ERROR: Server sent a wrong data size"
     data = [head[1]]
     data_received = len(head[1])
