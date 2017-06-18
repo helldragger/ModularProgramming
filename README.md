@@ -14,6 +14,8 @@ side
 ### What is coming next?
 
 -  ---Support for LARGE source codes--- *DONE*
+-  Stand-alone database server to separate client query management from actual database queries
+-  Configurable caching system to optimize performance and memory usage on large databases
 -  Moar languages implemented (just ask if you need a specific one, it's quick to add)
 -  Adding more algorithms to the database (you can contribute too!)
 -  Maybe linux support if there is interest in such a feature
