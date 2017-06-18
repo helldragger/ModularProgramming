@@ -13,7 +13,7 @@ import socket
 
 def send_message(message, sock):
     size = str(len(message))
-    sock.send((size+'\0'+message).encode())
+    sock.sendall((size+'\0'+message).encode())
 
 
 def get_message(sock):

@@ -9,7 +9,7 @@ def send_message(message, sock):
     # recupération de la taille du message à envoyer et encodage
     size = str(len(message))
     # envoi de la taille du message, separateur, message
-    sock.send((size+'\0'+message).encode())
+    sock.sendall((size+'\0'+message).encode())
 
 
 def get_message(sock):
