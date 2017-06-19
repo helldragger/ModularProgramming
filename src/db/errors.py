@@ -5,7 +5,7 @@ The error messages of the database
 
 class DataBaseException(Exception):
     """
-    A subclass of the base exception to regroup every specific exception of this database
+    A subclass of the base exception
     """
 
     def __init__(self):

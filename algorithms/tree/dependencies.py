@@ -54,7 +54,10 @@ def parse_tree(nodes, parent, visited=()):
 
     for child in children:
         if child in visited:
-            raise Exception('Circular dependency: ' + str(parent) + ", " + str(child))
+            raise Exception('Circular dependency: '
+                            + str(parent)
+                            + ", "
+                            + str(child))
         else:
             child_tree.append(parse_tree(nodes, child, visited))
 
